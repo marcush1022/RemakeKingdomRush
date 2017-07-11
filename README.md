@@ -14,4 +14,4 @@
 ----
 ![3](https://github.com/marcush1022/RemakeKingdomRush/blob/master/23.PNG)
 
-![4](https://github.com/marcush1022/RemakeKingdomRush/blob/master/LCT.PNG)
+![4](https://github.com/marcush1022/RemakeKingdomRush/blob/master/LC.PNG)
