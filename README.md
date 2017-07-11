@@ -13,3 +13,5 @@
 游戏界面：<br>
 ----
 ![3](https://github.com/marcush1022/ReimplementKingdomRush/blob/master/23.PNG)
+
+![4](https://github.com/marcush1022/ReimplementKingdomRush/blob/master/LCT.PNG)
