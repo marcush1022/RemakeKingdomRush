@@ -16,4 +16,8 @@ III.游戏界面：<br>
 
 IV.流程图：<br>
 ----
-![4](https://github.com/marcush1022/RemakeKingdomRush/blob/master/LC.PNG)
+![4](https://github.com/marcush1022/RemakeKingdomRush/blob/master/L1.PNG)
+
+V.组件结构图：<br>
+----
+![5](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Z1.PNG)
