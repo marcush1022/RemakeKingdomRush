@@ -4,14 +4,14 @@
 
 主界面：<br>
 ----
-![1](https://github.com/marcush1022/ReimplementKingdomRush/blob/master/main.PNG)
+![1](https://github.com/marcush1022/RemakeKingdomRush/blob/master/main.PNG)
 
 任务选择：<br>
 ----
-![2](https://github.com/marcush1022/ReimplementKingdomRush/blob/master/2.PNG)
+![2](https://github.com/marcush1022/RemakeKingdomRush/blob/master/2.PNG)
 
 游戏界面：<br>
 ----
-![3](https://github.com/marcush1022/ReimplementKingdomRush/blob/master/23.PNG)
+![3](https://github.com/marcush1022/RemakeKingdomRush/blob/master/23.PNG)
 
-![4](https://github.com/marcush1022/ReimplementKingdomRush/blob/master/LCT.PNG)
+![4](https://github.com/marcush1022/RemakeKingdomRush/blob/master/LC.PNG)
