@@ -1,5 +1,5 @@
-# ReimplementKingdomRush
-用cocos实现塔防游戏KingdomRush<br>
+# (Remake)KingdomRush
+用cocos2dx重制经典塔防游戏KingdomRush:Frontier<br>
 =====
 
 I.主界面：<br>
