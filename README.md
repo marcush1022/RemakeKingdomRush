@@ -4,7 +4,7 @@
 
 I.主界面：<br>
 ----
-![1](https://github.com/marcush1022/RemakeKingdomRush/blob/master/main.PNG)
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/main.PNG" width="50%" height="50%" />
 
 II.任务选择(大地图)：<br>
 ----
