@@ -26,8 +26,8 @@ V.组件结构图：<br>
 VI.类图: <br>
 ----
 1. "塔" <br>
-![6](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Tower.PNG)
+![6](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Tower.png)
 2. "怪物" <br>
-![7](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Monster (1).PNG)
+![7](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Monster%20(1).png)
 3. "子弹" <br>
-![8](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Bullet (1).PNG)
+![8](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Bullet%20(1).png)
