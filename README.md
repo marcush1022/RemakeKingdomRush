@@ -8,7 +8,8 @@ I.主界面：<br>
 
 II.任务选择(大地图)：<br>
 ----
-![2](https://github.com/marcush1022/RemakeKingdomRush/blob/master/map.PNG)
+ <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/2.PNG" width = "300" height = "200" alt="111" align=center />
+![2](https://github.com/marcush1022/RemakeKingdomRush/blob/master/2.PNG)
 
 III.游戏界面：<br>
 ----
