@@ -35,7 +35,8 @@ bool PlayerStateMenu::init()
 	pause->setPosition(Point(Director::getInstance()->getWinSize().width - 20,Director::getInstance()->getWinSize().height - 20 + 100));
 	addChild(pause);
 
-	//zhanglei-ÍØÕ¹µÄ¹¥»÷¹¦ÄÜ£ºÀ×Ê¯£¬É¡±ø£¬½õÄÒ 
+	//æ‹“å±•çš„æ”»å‡»æŠ€èƒ½ï¼šé™¨çŸ³ï¼Œæ´å…µï¼ŒèƒŒåŒ… 
+	//å›ºå®šæŠ€èƒ½é™¨çŸ³
 	thunderStoneSprite = Sprite::createWithSpriteFrameName("power_portrait_fireball_0001.png");
 	thunderStoneSprite->setAnchorPoint(Point(0,0));
 	thunderStoneSprite->setPosition(Point(10,-20));
@@ -55,7 +56,7 @@ bool PlayerStateMenu::init()
 	packSprite->setPosition(Point(Director::getInstance()->getWinSize().width - 10,-20));
 	packSprite->setName("inactive");
 	addChild(packSprite,1);
-	//½õÄÒ±³¾°
+	//èƒŒåŒ…èƒŒæ™¯
 	backPackSprite = Sprite::createWithSpriteFrameName("backPack_hover.png");
 	backPackSprite->setAnchorPoint(Point(1,0));
 	backPackSprite->setPosition(Point(Director::getInstance()->getWinSize().width - 60,30));
@@ -78,7 +79,7 @@ bool PlayerStateMenu::init()
 	};
 	backPackSpritelistener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(backPackSpritelistener,backPackSprite);
-	//½õÄÒÁùÏÀ
+	//èƒŒåŒ…6ç§ç‰©å“
 	for(int i = 0; i < 6 ; i ++){
 		int num = UserDefault::getInstance()->getIntegerForKey(String::createWithFormat(instance->SLOTX_SHOP,i)->getCString());
 		if(num > 0){
@@ -100,12 +101,13 @@ bool PlayerStateMenu::init()
 		backPack_icons_Sprite[i]->addChild(numLeft);
 	}
 
-	//µ¹¼ÆÊ±Í¼²ã
+	//å€’è®¡æ—¶é®ç›–å›¾å±‚ï¼Œé‡‡ç”¨Progress Timerå®ç°ï¼Œæ”¾åœ¨å›¾ç‰‡ç²¾çµä¸Šé¢
 	stoneTimer = ProgressTimer::create(Sprite::createWithSpriteFrameName("power_loading.png"));
 	stoneTimer->setAnchorPoint(Point(0,0));
+	//é¡ºæ—¶é’ˆè½¬åŠ¨
 	stoneTimer->setReverseDirection(true);
 	stoneTimer->setPosition(Point(10,-20));
-	stoneTimer->setPercentage(100);//ÏÔÊ¾Ô­ĞÎµÄ°Ù·Ö±È
+	stoneTimer->setPercentage(100);//æ˜¾ç¤ºåœ†å½¢çš„ç™¾åˆ†æ¯”
 	this->addChild(stoneTimer,1,100);
 	
 
@@ -113,10 +115,8 @@ bool PlayerStateMenu::init()
 	paratrooperTimer->setReverseDirection(true);
 	paratrooperTimer->setAnchorPoint(Point(0,0));
 	paratrooperTimer->setPosition(Point(120,-20));
-	paratrooperTimer->setPercentage(100);//ÏÔÊ¾Ô­ĞÎµÄ°Ù·Ö±È
+	paratrooperTimer->setPercentage(100);//æ˜¾ç¤ºåœ†å½¢çš„ç™¾åˆ†æ¯”
 	this->addChild(paratrooperTimer,1,200);
-
-	//zhanglei-end
 
 	auto pause_listener = EventListenerTouchOneByOne::create();
 	pause_listener->onTouchBegan = [&](Touch* touch, Event* event){
@@ -147,8 +147,7 @@ bool PlayerStateMenu::init()
 	pause_listener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(pause_listener,pause);
 
-	//zhanglei-begin
-	//¼àÌıÀ×Ê¯
+	//ç›‘å¬é™¨çŸ³, æ·»åŠ è§¦æ‘¸å“åº”
 	auto stoneListener = EventListenerTouchOneByOne::create();
 	stoneListener->onTouchBegan = [&](Touch* touch, Event* event){
 		
@@ -156,24 +155,26 @@ bool PlayerStateMenu::init()
 		Point locationInNode = target->convertTouchToNodeSpace(touch);
 		Size size = target->getContentSize();
 		Rect rect = Rect(0, 0, size.width, size.height);
-		//Èôµã»÷
+		//è‹¥ç¬¬ä¸€æ¬¡ç‚¹å‡»
 		if(rect.containsPoint(locationInNode)){
-			//ÈôÀäÈ´½áÊø
+			//è‹¥å†·å´ç»“æŸ
 			if(completeThunder == true){
+				//ç§»é™¤å…¶ä»–æŠ€èƒ½è§¦æ‘¸ç›‘å¬
 				mTouchLayer->removeAllListener();
 				if(thunderStoneSprite->getName() == "inactive"){
-					//ÉèÖÃÎªµã»÷×´Ì¬
+					//è®¾ç½®ä¸ºç‚¹å‡»çŠ¶æ€
 					thunderStoneSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_fireball_0002.png"));
-					//¸Ä±ä×´Ì¬TAG
+					//æ”¹å˜çŠ¶æ€TAG
 					thunderStoneSprite->setName("active");
-					//¸Ä±äÆäËû2¸ö°´¼ü×´Ì¬
+					//æ”¹å˜å…¶ä»–2ä¸ªæŒ‰é”®çŠ¶æ€
 					paratrooperSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_reinforcement_0001.png"));
 					paratrooperSprite->setName("inactive");
 					packSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_backpack_0001.png"));
 					packSprite->setName("inactive");
 					backPackSprite->setVisible(false);
+					//è§¦æ‘¸å±‚è®¾ç½®é™¨çŸ³æŠ€èƒ½ç›‘å¬
 					mTouchLayer->setFireBallTouchShield();
-				//µÚ¶ş´Îµã»÷
+				//ç¬¬äºŒæ¬¡ç‚¹å‡»ï¼Œå–æ¶ˆ
 				}else{
 					thunderStoneSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_fireball_0001.png"));
 					thunderStoneSprite->setName("inactive");
@@ -188,7 +189,7 @@ bool PlayerStateMenu::init()
 	};
 	stoneListener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(stoneListener,thunderStoneSprite);
-	//¼àÌıÉ¡±ø
+	//ç›‘å¬æ´å…µ
 	auto paratrooperListener = EventListenerTouchOneByOne::create();
 	paratrooperListener->onTouchBegan = [&](Touch* touch, Event* event){
 
@@ -223,7 +224,7 @@ bool PlayerStateMenu::init()
 	};
 	paratrooperListener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(paratrooperListener,paratrooperSprite);
-	//¼àÌı½õÄÒ
+	//ç›‘å¬èƒŒåŒ…
 	auto packListener = EventListenerTouchOneByOne::create();
 	packListener->onTouchBegan = [&](Touch* touch, Event* event){
 
@@ -258,7 +259,7 @@ bool PlayerStateMenu::init()
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(packListener,packSprite);
 
-	//¼àÌı½õÄÒÎå´ó¼¼ÄÜ
+	//ç›‘å¬èƒŒåŒ…6ç§ç‰©å“
 	auto skillListener = EventListenerTouchOneByOne::create();
 	skillListener->onTouchBegan = [&](Touch* touch, Event* event){
 		
@@ -344,8 +345,8 @@ void PlayerStateMenu::pauseGame()
 
 void PlayerStateMenu::startProgressTimers()
 {
-	this->schedule(schedule_selector(PlayerStateMenu::updateStoneProgress));//¸ü¼ÓÊµ¼ÊÇé¿öÀ´¸üĞÂ½ø¶È.
-	this->schedule(schedule_selector(PlayerStateMenu::updateParatrooperProgress));//¸ü¼ÓÊµ¼ÊÇé¿öÀ´¸üĞÂ½ø¶È.
+	this->schedule(schedule_selector(PlayerStateMenu::updateStoneProgress));//æ›´åŠ å®é™…æƒ…å†µæ¥æ›´æ–°è¿›åº¦.
+	this->schedule(schedule_selector(PlayerStateMenu::updateParatrooperProgress));//æ›´åŠ å®é™…æƒ…å†µæ¥æ›´æ–°è¿›åº¦.
 }
 
 void PlayerStateMenu::startStone()
@@ -430,20 +431,21 @@ void PlayerStateMenu::onEnterTransitionDidFinish()
 
 }
 
-//zhanglei-Ô²ĞÎµ¹¼ÆÊ±½ø¶ÈÌõ-À×Ê¯
+//æ·»åŠ å®šæ—¶å™¨ï¼Œæ›´æ–°ProgressTimerçŠ¶æ€
 void PlayerStateMenu::updateStoneProgress(float Dt){  
-	stoneTimer->setPercentage(stoneTimer->getPercentage() - Dt*2);//¸üĞÂ½ø¶È2
+	stoneTimer->setPercentage(stoneTimer->getPercentage() - Dt*2);//æ›´æ–°è¿›åº¦2
 	if (stoneTimer->getPercentage()==0) {
-		this->unschedule(schedule_selector(PlayerStateMenu::updateStoneProgress));//È¡Ïû¶¨Ê±Æ÷
+		this->unschedule(schedule_selector(PlayerStateMenu::updateStoneProgress));//å–æ¶ˆå®šæ—¶å™¨
+		//å€’è®¡æ—¶ç»“æŸæ—¶ï¼Œå°†completeThunderè®¾ç½®ä¸ºtrueï¼Œåªæœ‰ç‚¹å‡»æ‰ä¼šè§¦å‘
 		completeThunder = true;
 	}
 	return;
 }
-//zhanglei-Ô²ĞÎµ¹¼ÆÊ±½ø¶ÈÌõ-É¡±ø
+//zhanglei-åœ†å½¢å€’è®¡æ—¶è¿›åº¦æ¡-æ´å…µ
 void PlayerStateMenu::updateParatrooperProgress(float Dt){ 
-	paratrooperTimer->setPercentage(paratrooperTimer->getPercentage() - Dt*5);//¸üĞÂ½ø¶È5
+	paratrooperTimer->setPercentage(paratrooperTimer->getPercentage() - Dt*5);//æ›´æ–°è¿›åº¦5
 	if (paratrooperTimer->getPercentage()==0) {
-		this->unschedule(schedule_selector(PlayerStateMenu::updateParatrooperProgress));//È¡Ïû¶¨Ê±Æ÷
+		this->unschedule(schedule_selector(PlayerStateMenu::updateParatrooperProgress));//å–æ¶ˆå®šæ—¶å™¨
 		completeParatrooper = true;
 	}
 	return;
@@ -485,22 +487,22 @@ void PlayerStateMenu::shopSkill(int type)
 			CallFuncN::create(CC_CALLBACK_0(PlayerStateMenu::clearMonsters, this)),NULL));
 		}
 		break;
-	case(1)://´ó·¶Î§±ù¶³
+	case(1)://å¤§èŒƒå›´å†°å†»
 		frozenMonsters();	
 		break;
-	case(2)://Ğ¡·¶Î§Õ¨µ¯
+	case(2)://å°èŒƒå›´ç‚¸å¼¹
 		mTouchLayer->removeAllListener();
 		mTouchLayer->setDynamiteTouchShield();
 		break;
-	case(3)://Ğ¡·¶Î§±ù¶³
+	case(3)://å°èŒƒå›´å†°å†»
 		mTouchLayer->removeAllListener();
 		mTouchLayer->setFreezeTouchShield();
 		break;
-	case(4)://Ôö¼ÓÉúÃü
+	case(4)://å¢åŠ ç”Ÿå‘½
 		SoundManager::playCash();
 		GameManager::getInstance()->LIFE = GameManager::getInstance()->LIFE + 5;
 		break;
-	case(5)://Ôö¼Ó½ğÇ®
+	case(5)://å¢åŠ é‡‘é’±
 		SoundManager::playHearts();
 		GameManager::getInstance()->MONEY = GameManager::getInstance()->MONEY + 500;
 		break;
@@ -519,17 +521,17 @@ void PlayerStateMenu::reFrozenMonsters(float dt)
 void PlayerStateMenu::frozenMonsters()
 {
 	if(!isFrozen){
-		//ÓÒÉÏ½Ç
+		//å³ä¸Šè§’
 		auto winSize = Director::getInstance()->getWinSize();
 		auto ice_corner_1 = Sprite::createWithSpriteFrameName("freeze_gfx_corner.png");
 		ice_corner_1->setAnchorPoint(Point(1,1));
 		ice_corner_1->setPosition(Point(winSize.width,winSize.height));
-		//ÓÒÏÂ½Ç
+		//å³ä¸‹è§’
 		auto ice_corner_2 = Sprite::createWithSpriteFrameName("freeze_gfx_corner.png");
 		ice_corner_2->setFlippedY(true);
 		ice_corner_2->setAnchorPoint(Point(1,0));
 		ice_corner_2->setPosition(Point(winSize.width,0));
-		//×óÏÂ½Ç
+		//å·¦ä¸‹è§’
 		auto ice_corner_3 = Sprite::createWithSpriteFrameName("freeze_gfx_corner.png");
 		ice_corner_3->setFlippedX(true);
 		ice_corner_3->setFlippedY(true);
