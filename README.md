@@ -4,16 +4,16 @@
 
 I.主界面：<br>
 ----
-<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/main.PNG" width="50%" height="50%" />
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/main.PNG" width="70%" height="70%" />
 
 II.任务选择(大地图)：<br>
 ----
-![2](https://github.com/marcush1022/RemakeKingdomRush/blob/master/2.PNG)
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/2.PNG" width="70%" height="70%" />
 
 
 III.游戏界面：<br>
 ----
-![3](https://github.com/marcush1022/RemakeKingdomRush/blob/master/23.PNG)
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/23.PNG" width="70%" height="70%" />
 
 IV.流程图：<br>
 ----
