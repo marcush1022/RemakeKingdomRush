@@ -29,6 +29,6 @@ IV.类图: <br>
 1. "塔" <br>
 ![6](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Tower.png)
 2. "怪物" <br>
-<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/Monster%20(1).png" width="85%" height="85%" />
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/Monster%20(1).png" width="70%" height="70%" />
 3. "子弹" <br>
 <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/Bullet%20(1).png" width="85%" height="85%" />
