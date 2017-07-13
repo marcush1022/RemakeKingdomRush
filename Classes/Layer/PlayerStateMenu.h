@@ -28,12 +28,12 @@ public:
 	Label* goldLabel;
 	Label* waveLabel;
 
-	//zhanglei-begin - ¶¨ÒåÀ×Ê¯£¬É¡±ø£¬½õÄÒÈı¸ö¾«Áé
+	//å®šä¹‰é™¨çŸ³ï¼Œæ´å…µï¼ŒèƒŒåŒ…ä¸‰ä¸ªç²¾çµ
 	Sprite* thunderStoneSprite;
 	Sprite* paratrooperSprite;
 	Sprite* packSprite;
 	Sprite* backPackSprite;
-	//ÁùÏÀ
+	//6ç§è´­ä¹°ç‰©å“
 	Sprite* backPack_icons_Sprite[6];
 	std::string stringForSkillFileName;
 	void updateStoneProgress(float Dt);
@@ -42,7 +42,6 @@ public:
 	bool completeParatrooper;
 	ProgressTimer* paratrooperTimer;
 	ProgressTimer* stoneTimer;
-	//zhanglei-end
 
 	GameManager* instance;
 	TouchLayer* mTouchLayer;
