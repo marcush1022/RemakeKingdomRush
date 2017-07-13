@@ -20,7 +20,7 @@ I.截图：<br>
 <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/23.PNG" width="70%" height="70%" />
 
 6.塔升级菜单 <br>
-<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/circle.PNG" width="70%" height="70%" />
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/circle.PNG" width=312 height=312 />
 
 II.流程图：<br>
 ----
