@@ -38,12 +38,20 @@ II.流程图：<br>
 
 III.组件结构图：<br>
 ----
+>主要分为4大模块: <br>
+>* 塔模块 <br>
+>  
+>* 怪物模块 <br>
+>* 地图模块 <br>
+>* 子弹模块 <br>
+<br>
+
 ![5](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Z1.PNG)
 
 IV.类图: <br>
 ----
 1. "塔" <br>
-![6](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Tower.png)
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/img/Tower3.png" width="85%" height="85%" />
 2. "怪物" <br>
 <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/Monster%20(1).png" width="70%" height="70%" />
 3. "子弹" <br>
