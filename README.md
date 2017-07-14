@@ -51,7 +51,7 @@ III.组件结构图：<br>
 IV.类图: <br>
 ----
 1. "塔" <br>
-<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/img/Tower3.png" width="85%" height="85%" />
+<img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/img/Tower3.png" />
 2. "怪物" <br>
 <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/Monster%20(1).png" width="70%" height="70%" />
 3. "子弹" <br>
