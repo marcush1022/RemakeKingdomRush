@@ -49,10 +49,10 @@ III.组件结构图：<br>
 >  命与金币状态，监听暂停菜单和暂停按钮；触摸层，用于拦截触摸或点击事件(例如滚动地图)，监听技能释放，防御塔升级菜单
 >* **子弹模块** <br>
 >  分为4种:
->  1.基础的单体箭类(MageBolt、TotemAxe等)，落点与怪物位置重合就损血
->  2.区域攻击的炸弹类(FireBall、Bomb等)，落点范围内的怪物损血
->  3.撼地者的地震波EarthquakeSmoke，以塔为中心的所有怪物都损血
->  4.大法师塔的龙卷风Twister，这个比较复杂，需要添加一个寻找最近目标的方法和自身移动的方法
+>  1.基础的单体箭类(MageBolt、TotemAxe等)，落点与怪物位置重合就损血  
+>  2.区域攻击的炸弹类(FireBall、Bomb等)，落点范围内的怪物损血  
+>  3.撼地者的地震波EarthquakeSmoke，以塔为中心的所有怪物都损血  
+>  4.大法师塔的龙卷风Twister，这个比较复杂，需要添加一个寻找最近目标的方法和自身移动的方法  
 <br>
 
 ![5](https://github.com/marcush1022/RemakeKingdomRush/blob/master/Z1.PNG)
