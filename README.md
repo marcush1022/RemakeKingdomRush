@@ -6,6 +6,8 @@
 >关卡一共12关<br>
 >另外英雄系统还在研究中...
 <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/img/hero.PNG" width="50%" height="50%" />
+   
+<br>
 
 INTRODUCTION:
 =====
