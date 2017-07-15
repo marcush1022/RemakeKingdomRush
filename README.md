@@ -1,8 +1,8 @@
 (Remake)KingdomRush
 =====
->用cocos2dx3.0重制经典塔防游戏KingdomRush:Frontier<br>
+>用cocos2dx3.0设计实现经典塔防游戏KingdomRush:Frontier<br>
 >IDE为visual studio community 2017<br>
->设计实现原游戏大部分内容, 包括9种防御塔, 24种怪物, 2种boss, 7种士兵<br>
+>实现原游戏大部分内容, 包括9种防御塔, 24种怪物, 2种boss, 7种士兵<br>
 >关卡一共12关<br>
 >另外英雄系统还在研究中...
 <img src="https://github.com/marcush1022/RemakeKingdomRush/blob/master/img/hero.PNG" width="50%" height="50%" />
