@@ -8,8 +8,11 @@
 #include "..\Classes\Bullet\Freeze.h"
 #include "..\Classes\Bullet\Dynamite.h"
 #include "..\Classes\Bullet\FireBall.h"
+#include "..\Classes\Bullet\ArrowRain.h"
+#include "..\Classes\Bullet\AncientHammer.h"
 #include "PlayerStateMenu.h"
 
+//添加地图移动时间触摸
 void TouchLayer::setTouchShield()
 {
 	touchlistener = EventListenerTouchOneByOne::create();
@@ -17,6 +20,7 @@ void TouchLayer::setTouchShield()
 	touchlistener->onTouchEnded = CC_CALLBACK_2(TouchLayer::onTouchEnded, this);
 	touchlistener->onTouchMoved = CC_CALLBACK_2(TouchLayer::onTouchMoved, this);
 	touchlistener->setSwallowTouches(true);
+	//将FiexPriority设置为-1为了确保触摸事件先与技能等其他触摸时间触发
 	_eventDispatcher->addEventListenerWithFixedPriority(touchlistener,-1);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchlistener,this);
 }
@@ -40,6 +44,8 @@ bool TouchLayer::init()
 	Freezelistener = NULL;
 	Dynamitelistener = NULL;
 	FiereBalllistener = NULL;
+	ArrowRainlistener=NULL;
+	AncientHammerlistener=NULL;
 
 	for (int len = 1;len <= 30; len++)
 	{
@@ -55,36 +61,107 @@ bool TouchLayer::init()
 	return true;
 }
 
+/***************************************Arrow Rain touch listener begin****************************************/
+void TouchLayer::setArrowRainTouchShield()
+{
+	ArrowRainListener=EventListenerTouchOneByOne::create();
+	ArrowRainListener->onTouchBegan=CC_CALLBACK_2(TouchLayer::onArrowRainTouchBegan, this);
+	ArrowRainListener->onTouchEnded=CC_CALLBACK_2(TouchLayer::onArrowRainTouchEnded, this);
+	ArrowRainListener->setSwallowTouches(true);
+	
+	//设置比移动触摸事件高
+	_eventDispatcher->addEventListenerWithFixedPriority(ArrowRainListener,1);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(ArrowRainListener,this);
+}
+
+void TouchLayer::removeArrowRainTouchShield()
+{
+	if(ArrowRainListener!=NULL)
+		_eventDispatcher->removeEventListener(ArrowRainListener);
+}
+
+bool TouchLayer::onArrowRainTouchBegan(Touch* touch, Event* event)
+{
+	//直接返回TRUE，拦截其他时间
+	return true;
+}
+
+void TouchLayer::onArrowRainTouchEnded(Touch* touch, Event* event)
+{
+	SoundManager::playArrowRainUnleash();
+	auto arrowRain = ArrowRain::create();
+	this->getParent()->addChild(arrowRain);
+	arrowRain->shoot(static_cast<TouchLayer*>(event->getCurrentTarget())->convertTouchToNodeSpace(touch));
+	removeArrowRainTouchShield();
+}
+/***************************************Arrow Rain touch listener end****************************************/
+
+
+/***************************************AncientHammer touch listener begin****************************************/
+void TouchLayer::setAncientHammerTouchShield()
+{
+	AncientHammerListener=EventListenerTouchOneByOne::create();
+	AncientHammerListener->onTouchBegan=CC_CALLBACK_2(TouchLayer::onAncientHammerTouchBegan, this);
+	AncientHammerListener->onTouchEnded=CC_CALLBACK_2(TouchLayer::onAncientHammerTouchEnded, this);
+	AncientHammerListener->setSwallowTouches(true);
+	
+	//设置比移动触摸事件高
+	_eventDispatcher->addEventListenerWithFixedPriority(AncientHammer,1);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(AncientHammer,this);
+}
+
+void TouchLayer::removeAncientHammerTouchShield()
+{
+	if(AncientHammerListener!=NULL)
+		_eventDispatcher->removeEventListener(AncientHammerListener);
+}
+
+bool TouchLayer::onAncientHammerTouchBegan(Touch* touch, Event* event)
+{
+	//直接返回TRUE，拦截其他时间
+	return true;
+}
+
+void TouchLayer::onAncientHammerTouchEnded(Touch* touch, Event* event)
+{
+	SoundManager::playAncientHammerUnleash();
+	auto ancientHammer = AncientHammer::create();
+	this->getParent()->addChild(ancientHammer);
+	ancientHammer->shoot(static_cast<TouchLayer*>(event->getCurrentTarget())->convertTouchToNodeSpace(touch));
+	removeAncientHammerTouchShield();
+}
+/***************************************AncientHammer touch listener end****************************************/
+
 void TouchLayer::setFireBallTouchShield()
 {
-	//���ô˷���������ʯ���ܴ���ʱ��
+	//调用此方法创建陨石技能触摸时间
 	FiereBalllistener = EventListenerTouchOneByOne::create();
 	FiereBalllistener->onTouchBegan = CC_CALLBACK_2(TouchLayer::onFireBallTouchBegan, this);
 	FiereBalllistener->onTouchEnded = CC_CALLBACK_2(TouchLayer::onFireBallTouchEnded, this);
 	FiereBalllistener->setSwallowTouches(true);
-	//���ñ��ƶ������¼��߼���
+	//设置比移动触摸事件高即可
 	_eventDispatcher->addEventListenerWithFixedPriority(FiereBalllistener,1);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(FiereBalllistener,this);
 }
 
 void TouchLayer::removeFireBallTouchShield()
 {
-	//ʹ�ü������ȥ���˼���ʱ��
+	//使用技能完毕去除此监听时间
 	if(FiereBalllistener!=NULL)
 		_eventDispatcher->removeEventListener(FiereBalllistener);
 }
 
 bool TouchLayer::onFireBallTouchBegan(Touch* touch, Event* event)
 {
-	//ֱ�ӷ���TRUE����������ʱ��
+	//直接返回TRUE，拦截其他时间
 	return true;
 }
 
 void TouchLayer::onFireBallTouchEnded(Touch* touch, Event* event)
 {
-	//������Ч
+	//播放音效
 	SoundManager::playFireballUnleash();
-	//����3����ʯ
+	//创建3个陨石
 	auto fireBall1 = FireBall::create();
 	addChild(fireBall1);
 	fireBall1->shoot(static_cast<TouchLayer*>(event->getCurrentTarget())->convertTouchToNodeSpace(touch)+Point(-30,300));
@@ -94,9 +171,9 @@ void TouchLayer::onFireBallTouchEnded(Touch* touch, Event* event)
 	auto fireBall3 = FireBall::create();
 	addChild(fireBall3);
 	fireBall3->shoot(static_cast<TouchLayer*>(event->getCurrentTarget())->convertTouchToNodeSpace(touch)+Point(30,280));
-	//��ʯ׹��֮���ȡ��������״̬�㣬����startStone,���¿�ʼ��ʱ��������ProgressTimer�ڸǲ�
+	//陨石坠落之后获取父类的玩家状态层，调用startStone,重新开始计时并且重置ProgressTimer遮盖层
 	static_cast<BaseMap*>(this->getParent())->playerState->startStone();
-	//�Ƴ��˼����¼�
+	//移除此监听事件
 	removeFireBallTouchShield();
 }
 
@@ -227,10 +304,12 @@ void TouchLayer::onSoldierTouchEnded(Touch* touch, Event* event)
 	removeSoldierTouchShield();
 }
 
+//当点击在范围内，显示集结点旗帜，重设士兵塔的集结点即setRallyPoint方法
 bool TouchLayer::onRallyFlagTouchBegan(Touch* touch, Event* event)
 {
 	auto target = static_cast<TouchLayer*>(event->getCurrentTarget());
 	Point locationInNode = target->convertTouchToNodeSpace(touch);
+	//当点击在范围内
 	if(locationInNode.distance(tower->getParent()->getPosition())<160 && locationInNode.distance(tower->getParent()->getPosition())>80){
 		addRallyFlag(locationInNode);
 		tower->setRallyPoint(locationInNode);
@@ -276,6 +355,10 @@ bool TouchLayer::onTouchBegan(Touch* touch, Event* event)
 	return true;
 }
 
+//当手指在触摸层上移动的时候，isMoved会为true，这时setSwallowTouches(isMoved)会将其他触摸事件吞噬
+//这样是为了确保移动的时候经过或者移动结束的时候碰巧在某触摸点时，不会触发其他触摸事件（比如说移动完
+//手指正好在某个防御塔上，这样就不会弹出防御塔升级层）
+//另外当移动的时候也不会触发技能事件监听，可以移动完再选择技能释放地点
 void TouchLayer::onTouchEnded(Touch* touch, Event* event)
 {
 	touchlistener->setSwallowTouches(isMoved);
@@ -288,24 +371,24 @@ void TouchLayer::onTouchEnded(Touch* touch, Event* event)
 
 void TouchLayer::onTouchMoved(Touch* touch, Event* event)
 {
-        // ���㻬�������еĻ�������
+        // 计算滑动过程中的滑动增量
         auto diff = touch->getDelta(); 
 
-		//��ָ�ƶ���������Ϊ��ָ����������괥����ô�̶�
+		//手指移动修正，因为手指触摸不像鼠标触摸那么固定
 		if(abs(diff.x) >5|| abs(diff.y) >5){
 			isMoved = true;
 		}
-			// �õ���ǰbgSprite��λ��
+			// 得到当前bgSprite的位置
 			auto currentPos = this->getParent()->getPosition();
-			// �õ�������bgSpriteӦ�����ڵ�λ��
+			// 得到滑动后bgSprite应该所在的位置
 			auto pos = currentPos + diff;
 
-			//�߽���ƣ�Լ��pos��λ��
+			//边界控制，约束pos的位置
 			pos.x = MIN(pos.x, 0);
 			pos.x = MAX(pos.x, -1200 + winSize.width);
 			pos.y = MIN(pos.y, 0);
 			pos.y = MAX(pos.y, -1000 + winSize.height);
-			// ����bgSpriteλ��
+			// 重设地图层bgSprite位置
 
 			this->getParent()->setPosition(pos);
 }
