@@ -18,6 +18,8 @@ public:
 	EventListenerTouchOneByOne* Freezelistener;
 	EventListenerTouchOneByOne* Dynamitelistener;
 	EventListenerTouchOneByOne* FiereBalllistener;
+	EventListenerTouchOneByOne* ArrowRainListener; //windwalker skill: arrow rain
+	EventListenerTouchOneByOne* AncientHammerListener; //barbarian skill: ancientHammer
 
 	void setDynamiteTouchShield();
 	void removeDynamiteTouchShield();
@@ -43,6 +45,20 @@ public:
 	void removeFireBallTouchShield();
 	bool onFireBallTouchBegan(Touch* touch, Event* event);
 	void onFireBallTouchEnded(Touch* touch, Event* event);
+	
+	/***************************************Arrow Rain touch listener begin****************************************/
+	void setArrowRainTouchShield();
+	void removeArrowRainTouchShield();
+	bool onArrowRainTouchBegan(Touch* touch, Event* event);
+	void onArrowRainTouchEnded(Touch* touch, Event* event);
+	/***************************************Arrow Rain touch listener begin****************************************/
+	
+	/***************************************ancientHammer touch listener begin****************************************/
+	void setAncientHammerTouchShield();
+	void removeAncientHammerTouchShield();
+	bool onAncientHammerTouchBegan(Touch* touch, Event* event);
+	void onAncientHammerTouchEnded(Touch* touch, Event* event);
+	/***************************************ancientHammer touch listener begin****************************************/
 
 	void removeTouchShield();
 	void setTouchShield();
