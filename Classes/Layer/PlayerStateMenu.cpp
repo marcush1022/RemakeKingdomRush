@@ -35,8 +35,7 @@ bool PlayerStateMenu::init()
 	pause->setPosition(Point(Director::getInstance()->getWinSize().width - 20,Director::getInstance()->getWinSize().height - 20 + 100));
 	addChild(pause);
 
-	//拓展的攻击技能：陨石，援兵，背包 
-	//固定技能陨石
+	//skill fireball
 	thunderStoneSprite = Sprite::createWithSpriteFrameName("power_portrait_fireball_0001.png");
 	thunderStoneSprite->setAnchorPoint(Point(0,0));
 	thunderStoneSprite->setPosition(Point(10,-20));
@@ -44,6 +43,7 @@ bool PlayerStateMenu::init()
 	completeThunder = false;
 	addChild(thunderStoneSprite,1);
 
+	//skill paratrooper
 	paratrooperSprite = Sprite::createWithSpriteFrameName("power_portrait_reinforcement_0001.png");
 	paratrooperSprite->setAnchorPoint(Point(0,0));
 	paratrooperSprite->setPosition(Point(120,-20));
@@ -51,12 +51,14 @@ bool PlayerStateMenu::init()
 	completeParatrooper = false;
 	addChild(paratrooperSprite,1);
 
+	//items backPack
 	packSprite = Sprite::createWithSpriteFrameName("power_portrait_backpack_0001.png");
 	packSprite->setAnchorPoint(Point(1,0));
 	packSprite->setPosition(Point(Director::getInstance()->getWinSize().width - 10,-20));
 	packSprite->setName("inactive");
 	addChild(packSprite,1);
-	//背包背景
+	
+	//background of backPack
 	backPackSprite = Sprite::createWithSpriteFrameName("backPack_hover.png");
 	backPackSprite->setAnchorPoint(Point(1,0));
 	backPackSprite->setPosition(Point(Director::getInstance()->getWinSize().width - 60,30));
@@ -77,9 +79,9 @@ bool PlayerStateMenu::init()
 		}  
 		return false;  
 	};
+	//给触摸监听函数设置吞没事件，使得触摸上面的层的时候事件不会向下传递
 	backPackSpritelistener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(backPackSpritelistener,backPackSprite);
-	//背包6种物品
 	for(int i = 0; i < 6 ; i ++){
 		int num = UserDefault::getInstance()->getIntegerForKey(String::createWithFormat(instance->SLOTX_SHOP,i)->getCString());
 		if(num > 0){
@@ -100,7 +102,106 @@ bool PlayerStateMenu::init()
 		numLeft->setTag(101);
 		backPack_icons_Sprite[i]->addChild(numLeft);
 	}
-
+	
+	/*******************************************hero skill listener start*********************************/
+	//choosed hero skill 
+	//save hero selection as a index number
+	//###############################
+	heroIndex=UserDefault::getInstance()->getIntegerForKey(String::createWithFormat(instance->HERO_SELECT)->getCString());
+	stringForHeroSkillFileName = String::createWithFormat("hero_skill_000%d.png",heroIndex)->getCString();
+	heroSkillSprite=Sprite::createWithSpriteFrameName(stringForHeroSkillFileName);
+	heroSkillSprite->setAnchorPoint(Point(0,0));
+	heroSkillSprite->setPosition(Point(230,-20));
+	heroSkillSprite->setName("inactive");
+	completeHeroSkill=false;
+	addChild(heroSkillSprite,1);
+	
+	if(heroIndex==1)
+	{
+		//skill of windwalker
+		//set hero skill listener
+		auto heroSkillListener=EventListenerTouchOneByOne::create();
+		heroSkillListener->onTouchBegan = [&](Touch* touch, Event* event){
+			
+			auto target = static_cast<Sprite*>(event->getCurrentTarget());
+			Point locationInNode = target->convertTouchToNodeSpace(touch);
+			Size size = target->getContentSize();
+			Rect rect = Rect(0, 0, size.width, size.height);
+			if(rect.containsPoint(locationInNode)){
+				if(heroSkillSprite == true){
+					mTouchLayer->removeAllListener();
+					if(heroSkillSprite->getName() == "inactive"){
+						//####################################
+						//get skill actived img
+						string heroSkillActiveFileName=String::createWithFormat("hero_skill_0%d_001.png",heroIndex)->getCString();
+						string heroSkillInactiveFileName=String::createWithFormat("hero_skill_0%d_002.png",heroIndex)->getString();
+						heroSkillSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(heroSkillActiveFileName));
+						heroSkillSprite->setName("active");
+						//改变其他3个按键状态
+						thunderStoneSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_fireball_0001.png"));
+						thunderStoneSprite->setName("inactive");
+						paratrooperSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_reinforcement_0001.png"));
+						paratrooperSprite->setName("inactive");
+						packSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_backpack_0001.png"));
+						packSprite->setName("inactive");
+						backPackSprite->setVisible(false);
+						mTouchLayer->setArrowRainTouchShield();
+					}else{
+						//001为未点击状态
+						heroSkillSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(heroSkillActiveFileName));
+						heroSkillSprite->setName("inactive");
+					}
+				}
+				return true;
+			}
+			return false;  
+		};
+	}
+	else if(heroIndex==2)
+	{
+		//skill of barbarian
+		//set hero skill listener
+		auto heroSkillListener=EventListenerTouchOneByOne::create();
+		heroSkillListener->onTouchBegan = [&](Touch* touch, Event* event){
+			
+			auto target = static_cast<Sprite*>(event->getCurrentTarget());
+			Point locationInNode = target->convertTouchToNodeSpace(touch);
+			Size size = target->getContentSize();
+			Rect rect = Rect(0, 0, size.width, size.height);
+			if(rect.containsPoint(locationInNode)){
+				if(heroSkillSprite == true){
+					mTouchLayer->removeAllListener();
+					if(heroSkillSprite->getName() == "inactive"){
+						//####################################
+						//或取技能点击状态图标002，将图标设为点击状态
+						string heroSkillActiveFileName=String::createWithFormat("hero_skill_0%d_001.png",heroIndex)->getCString();
+						string heroSkillInactiveFileName=String::createWithFormat("hero_skill_0%d_002.png",heroIndex)->getString();
+						heroSkillSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(heroSkillActiveFileName));
+						heroSkillSprite->setName("active");
+						//改变其他3个按键状态
+						thunderStoneSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_fireball_0001.png"));
+						thunderStoneSprite->setName("inactive");
+						paratrooperSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_reinforcement_0001.png"));
+						paratrooperSprite->setName("inactive");
+						packSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_backpack_0001.png"));
+						packSprite->setName("inactive");
+						backPackSprite->setVisible(false);
+						//touchLayer
+						mTouchLayer->setStompTouchShield();
+					}else{
+						//001为未点击状态
+						heroSkillSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(heroSkillInactiveFileName));
+						heroSkillSprite->setName("inactive");
+					}
+				}
+				return true;
+			}
+			return false;  
+		};
+	}
+	
+	/*******************************************hero skill listener end****************************************/
+	
 	//倒计时遮盖图层，采用Progress Timer实现，放在图片精灵上面
 	stoneTimer = ProgressTimer::create(Sprite::createWithSpriteFrameName("power_loading.png"));
 	stoneTimer->setAnchorPoint(Point(0,0));
@@ -117,6 +218,14 @@ bool PlayerStateMenu::init()
 	paratrooperTimer->setPosition(Point(120,-20));
 	paratrooperTimer->setPercentage(100);//显示圆形的百分比
 	this->addChild(paratrooperTimer,1,200);
+	
+	/*******************************************hero skill timer start*********************************/
+	heroSkillTimer=ProgressTimer::create(Sprite::createWithSpriteFrameName("power_loading.png"));
+	heroSkillTimer->setReverseDirection(true);
+	heroSkillTimer->setAnchorPoint(Point(0,0));
+	heroSkillTimer->setPercentage(100);
+	this->addChild(heroSkillTimer,1,200);
+	/*******************************************hero skill timer end*********************************/
 
 	auto pause_listener = EventListenerTouchOneByOne::create();
 	pause_listener->onTouchBegan = [&](Touch* touch, Event* event){
@@ -147,7 +256,6 @@ bool PlayerStateMenu::init()
 	pause_listener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(pause_listener,pause);
 
-	//监听陨石, 添加触摸响应
 	auto stoneListener = EventListenerTouchOneByOne::create();
 	stoneListener->onTouchBegan = [&](Touch* touch, Event* event){
 		
@@ -189,7 +297,7 @@ bool PlayerStateMenu::init()
 	};
 	stoneListener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(stoneListener,thunderStoneSprite);
-	//监听援兵
+
 	auto paratrooperListener = EventListenerTouchOneByOne::create();
 	paratrooperListener->onTouchBegan = [&](Touch* touch, Event* event){
 
@@ -224,7 +332,7 @@ bool PlayerStateMenu::init()
 	};
 	paratrooperListener->setSwallowTouches(true);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(paratrooperListener,paratrooperSprite);
-	//监听背包
+
 	auto packListener = EventListenerTouchOneByOne::create();
 	packListener->onTouchBegan = [&](Touch* touch, Event* event){
 
@@ -259,7 +367,6 @@ bool PlayerStateMenu::init()
 	};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(packListener,packSprite);
 
-	//监听背包6种物品
 	auto skillListener = EventListenerTouchOneByOne::create();
 	skillListener->onTouchBegan = [&](Touch* touch, Event* event){
 		
@@ -359,6 +466,19 @@ void PlayerStateMenu::startStone()
 	this->schedule(schedule_selector(PlayerStateMenu::updateStoneProgress));
 }
 
+/*******************************************start hero skill timer begin*********************************/
+void PlayerStateMenu::startHeroSkill()
+{
+	completeHeroSkill=false;
+	//##############################################################
+	heroSkillSprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("power_portrait_fireball_0001.png"));
+	heroSkillSprite->setName("inactive");
+	heroSkillTimer->setPercentage(100.0f);
+	this->unschedule(schedule_selector(PlayerStateMenu::updateHeroSkillProgress));
+	this->schedule(schedule_selector(PlayerStateMenu::updateHeroSkillProgress));
+}
+/*******************************************start hero skill timer end*********************************/
+
 void PlayerStateMenu::showTowerInfo(TowerType towerType)
 {
 	removeChildByTag(MONSTER_INFO);
@@ -431,7 +551,6 @@ void PlayerStateMenu::onEnterTransitionDidFinish()
 
 }
 
-//添加定时器，更新ProgressTimer状态
 void PlayerStateMenu::updateStoneProgress(float Dt){  
 	stoneTimer->setPercentage(stoneTimer->getPercentage() - Dt*2);//更新进度2
 	if (stoneTimer->getPercentage()==0) {
@@ -441,7 +560,6 @@ void PlayerStateMenu::updateStoneProgress(float Dt){
 	}
 	return;
 }
-//zhanglei-圆形倒计时进度条-援兵
 void PlayerStateMenu::updateParatrooperProgress(float Dt){ 
 	paratrooperTimer->setPercentage(paratrooperTimer->getPercentage() - Dt*5);//更新进度5
 	if (paratrooperTimer->getPercentage()==0) {
@@ -450,6 +568,18 @@ void PlayerStateMenu::updateParatrooperProgress(float Dt){
 	}
 	return;
 }
+
+/*******************************************hero skill update progress begin*********************************/
+void PlayerStateMenu::updateHeroSkillProgress(float dt)
+{
+	heroSkillTimer->setPercentage(heroSkillTimer->getPercentage() - Dt*5);
+	if (heroSkillTimer->getPercentage()==0) {
+		this->unschedule(schedule_selector(PlayerStateMenu::updateHeroSkillProgress));
+		completeHeroSkill = true;
+	}
+	return;
+}
+/*******************************************hero skill update progress end*********************************/
 
 void PlayerStateMenu::clearMonsters()
 {
