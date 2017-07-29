@@ -75,7 +75,7 @@ Update 07/29/2017
 英雄类似士兵类中的援兵类，可以由玩家控制移动位置，在游戏开始时就执行函数birth(Point p)<br>
 每个英雄四个技能，3个英雄自己释放的技能和一个玩家控制释放的技能
 
-第一个英雄为WindWalker
+**第一个英雄为WindWalker**
 
 技能1: 每攻击n次，第n次攻击造成额外伤害<br>
 技能2: 有n的概率闪避敌人攻击，并对正在攻击的敌人造成额外伤害<br>
@@ -119,7 +119,7 @@ void TouchLayer::onArrowRainTouchEnded(Touch* touch, Event* event)
 }
 ```
 
-第二个英雄为Barbarian
+**第二个英雄为Barbarian**
 
 技能1 (Revenge): 受到攻击有n的概率对周围所有敌人造成伤害<br>
 技能2 (Execute): 斩杀生命值低于n的敌人<br>
@@ -128,50 +128,49 @@ void TouchLayer::onArrowRainTouchEnded(Touch* touch, Event* event)
 //技能123都在方法attackMonster中
 if((float)(HeroHp/this->getMaxHp()<0.3)) //Rage触发
 {
-		if(monsterCurrHp/nearestMonster->getMaxHp()>executeVal)
+	if(monsterCurrHp/nearestMonster->getMaxHp()>executeVal)
+	{
+		monsterCurrHp =  monsterCurrHp - this->getForce()-rageVal;
+		HeroHp+=(this->getForce()+rageVal)*0.25;
+		if(nearestMonster->getState()!=stateFrozen)
 		{
-			monsterCurrHp =  monsterCurrHp - this->getForce()-rageVal;
-			HeroHp+=(this->getForce()+rageVal)*0.25;
-			if(nearestMonster->getState()!=stateFrozen)
-			{
-				HeroHp-=nearestMonster->getForce();
-				if(rand()%100<=revengeRate)
-					shouldReven=true; //Revenge触发
-			}
+			HeroHp-=nearestMonster->getForce();
+			if(rand()%100<=revengeRate)
+				shouldReven=true; //Revenge触发
 		}
-		else //Execute触发
-			monsterCurrHp =  monsterCurrHp-99999;
+	}
+	else //Execute触发
+		monsterCurrHp =  monsterCurrHp-99999;
 }
 ```
 
 ```
 if(shouldReven==true) //Execute触发
 {	
-		//创建revenge动画
-		operation->runAction(Sequence::create(
-		   Animate::create(AnimationCache::getInstance()->getAnimation("Barbarian_Revenge")),
-			CallFuncN::create(CC_CALLBACK_0(Revenge::shoot,revenge)),NULL));
+	//创建revenge动画
+	operation->runAction(Sequence::create(
+		Animate::create(AnimationCache::getInstance()->getAnimation("Barbarian_Revenge")),
+		CallFuncN::create(CC_CALLBACK_0(Revenge::shoot,revenge)),NULL));
 				
-			auto monsterVector = GameManager::getInstance()->monsterVector;
-			auto heroPosition = this->getPosition();
-			for (int j = 0; j < monsterVector.size(); j++)
-			{
-				auto monster = monsterVector.at(j);
-				auto monsterPosition = monster->baseSprite->getPosition();
-            //范围内敌人损失血量，类似earthQuaker类
-				if(heroPosition.distance(monsterPosition)<= 35 && monster->getAttackBySoldier() )
-				{
-					auto currHp = monster->getCurrHp();
-					currHp =  currHp - this->getForce()*3;
+	auto monsterVector = GameManager::getInstance()->monsterVector;
+	auto heroPosition = this->getPosition();
+	for (int j = 0; j < monsterVector.size(); j++)
+	{
+		auto monster = monsterVector.at(j);
+		auto monsterPosition = monster->baseSprite->getPosition();
+                //范围内敌人损失血量，类似earthQuaker类
+		if(heroPosition.distance(monsterPosition)<= 35 && monster->getAttackBySoldier() )
+		{
+			auto currHp = monster->getCurrHp();
+			currHp =  currHp - this->getForce()*3;
 						
-					if(currHp <= 0){
-						currHp = 0;
-					}
-					monster->setCurrHp( currHp );
-					monster->getHpBar()->setPercentage((currHp/monster->getMaxHp())*100);
-					}
-				}
+			if(currHp <= 0)
+				currHp = 0;
+			monster->setCurrHp( currHp );
+			monster->getHpBar()->setPercentage((currHp/monster->getMaxHp())*100);
 			}
+		}
+	}
 }
 ```
 技能4 (AncientHammer): 玩家释放的AOE技能，造成伤害并眩晕敌人，同理ArrowRain，创建一个子弹类AncientHammer
