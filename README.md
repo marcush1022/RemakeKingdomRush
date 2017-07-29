@@ -2,6 +2,7 @@
 =====
 >用cocos2dx3.0设计实现经典塔防游戏KingdomRush:Frontier<br>
 >IDE为visual studio community 2017<br>
+>素材包(图片和声音等)来源于网络<br>
 >实现原游戏大部分内容, 包括9种防御塔, 24种怪物, 2种boss, 7种士兵<br>
 >关卡一共12关<br>
 >另外英雄系统还在研究中...
