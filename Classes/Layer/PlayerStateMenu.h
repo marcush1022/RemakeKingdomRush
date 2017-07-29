@@ -27,21 +27,30 @@ public:
 	Label* lifeLabel;
 	Label* goldLabel;
 	Label* waveLabel;
-
-	//定义陨石，援兵，背包三个精灵
+	
 	Sprite* thunderStoneSprite;
 	Sprite* paratrooperSprite;
 	Sprite* packSprite;
-	Sprite* backPackSprite;
-	//6种购买物品
+	Sprite* backPackSprite;d
+	Sprite* heroSkillSprite;
+	
+	//index of hero
+	int heroIndex;
+	
+	//6 items
 	Sprite* backPack_icons_Sprite[6];
-	std::string stringForSkillFileName;
+	std::string stringForHeroSkillFileName;
 	void updateStoneProgress(float Dt);
 	void updateParatrooperProgress(float Dt);
+	void updateHeroSkillProgress(float dt); //hero skill
 	bool completeThunder;
 	bool completeParatrooper;
+	//add hero skill button
+	bool completeHeroSkill;
 	ProgressTimer* paratrooperTimer;
 	ProgressTimer* stoneTimer;
+	//hero skill coldDown
+	ProgressTimer* heroSkillTimer;
 
 	GameManager* instance;
 	TouchLayer* mTouchLayer;
@@ -51,6 +60,7 @@ public:
 
 	void startParatrooper();
 	void startStone();
+	void startHeroSkill();
 	void showTowerInfo(TowerType towerType);
 	void removeTowerInfo();
 
